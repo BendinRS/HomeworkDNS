@@ -22,15 +22,6 @@ options {
         */
         recursion yes;
 
-        // Имя зоны
-        zone "dns.lab" {
-                type master;
-                // Тем, у кого есть ключ zonetransfer.key можно получать копию файла зоны
-                allow-transfer { key "zonetransfer.key"; };
-                // Файл с настройками зоны
-                file "/etc/named/named.dns.lab";
-        };
-
         dnssec-enable yes;
         dnssec-validation yes;
 
@@ -54,6 +45,15 @@ zone "." IN {
         type hint;
         file "named.ca";
 };
+
+// Имя зоны
+zone "dns.lab" {
+        type master;
+        // Тем, у кого есть ключ zonetransfer.key можно получать копию файла зоны
+        allow-transfer { key "zonetransfer.key"; };
+        // Файл с настройками зоны
+        file "/etc/named/named.dns.lab";
+        };
 
 include "/etc/named.rfc1912.zones";
 include "/etc/named.root.key";
@@ -83,12 +83,6 @@ options {
         */
         recursion yes;
 
-        // Имя зоны
-        zone "dns.lab" {
-                type slave;
-                // Адрес мастера, куда будет обращаться slave-сервер
-                masters { {{ip_ns01}}; };
-        };
 
         dnssec-enable yes;
         dnssec-validation yes;
@@ -113,6 +107,15 @@ zone "." IN {
         type hint;
         file "named.ca";
 };
+
+// Имя зоны
+zone "dns.lab" {
+        type master;
+        // Тем, у кого есть ключ zonetransfer.key можно получать копию файла зоны
+        allow-transfer { key "zonetransfer.key"; };
+        // Файл с настройками зоны
+        file "/etc/named/named.dns.lab";
+        };
 
 include "/etc/named.rfc1912.zones";
 include "/etc/named.root.key";
