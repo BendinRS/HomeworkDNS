@@ -55,6 +55,13 @@ zone "dns.lab" {
         file "/etc/named/named.dns.lab";
         };
 
+zone "newdns.lab" {
+        type master;
+        allow-transfer { key "zonetransfer.key"; };
+        allow-update { key "zonetransfer.key"; };
+        file "/etc/named/named.newdns.lab";
+};
+
 include "/etc/named.rfc1912.zones";
 include "/etc/named.root.key";
 
@@ -110,12 +117,16 @@ zone "." IN {
 
 // Имя зоны
 zone "dns.lab" {
-        type master;
-        // Тем, у кого есть ключ zonetransfer.key можно получать копию файла зоны
-        allow-transfer { key "zonetransfer.key"; };
-        // Файл с настройками зоны
-        file "/etc/named/named.dns.lab";
-        };
+        type slave;
+// Адрес мастера, куда будет обращаться slave-сервер
+        masters { 192.168.50.10; };
+};
+
+zone "newdns.lab" {
+        type slave;
+        masters { 192.168.50.10; };
+        file "/etc/named/named.newdns.lab";
+};
 
 include "/etc/named.rfc1912.zones";
 include "/etc/named.root.key";
