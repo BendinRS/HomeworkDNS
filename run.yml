@@ -4,7 +4,7 @@
   roles:
     - ns
 
-- hosts: client
+- hosts: clients_dns
   become: true
   roles:
     - clients
