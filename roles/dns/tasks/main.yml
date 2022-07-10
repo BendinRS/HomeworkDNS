@@ -27,7 +27,7 @@
 
   - name: copy resolv.conf to the servers
     template:
-      src: roles/dns/files/resolv.conf.j2
+      src: ./roles/dns/files/resolv.conf.j2
       dest: /etc/resolv.conf
       owner: root
       group: root
@@ -35,14 +35,14 @@
 
   - name: Copy named.conf to servers
     template:
-       src: roles/dns/files/named.conf.j2
+       src: ./roles/dns/files/named.conf.j2
        dest: /etc/openvpn/named.conf
       #  owner: frr
       #  group: frr
       #  mode: 0640
   - name: Copy dns.lab to ns01
     template:
-       src: roles/dns/files/named.dns.lab.j2
+       src: ./roles/dns/files/named.dns.lab.j2
        dest: /etc/openvpn/named.dns.lab
       #  owner: frr
       #  group: frr
