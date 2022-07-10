@@ -14,16 +14,11 @@
       state: restarted
       enabled: true
 
-  # - name: stop and disable chronyd
-  #   service:
-  #       name: chronyd
-  #       state: stopped
-  #       enabled: false
-  # - name: start and enable ntpd
-  #   service:
-  #     name: ntpd
-  #     state: started
-  #     enabled: true
+  - name: started named
+    service:
+      name: named
+      state: started
+      enabled: yes
 
   - name: copy resolv.conf to the servers
     template:
@@ -37,16 +32,16 @@
     template:
        src: named.conf.j2
        dest: /etc/openvpn/named.conf
-      #  owner: frr
-      #  group: frr
-      #  mode: 0640
+       owner: root
+       group: root
+       mode: 0644
   - name: Copy dns.lab to ns01
     template:
        src: named.dns.lab.j2
        dest: /etc/openvpn/named.dns.lab
-      #  owner: frr
-      #  group: frr
-      #  mode: 0640
+       owner: root
+       group: root
+       mode: 0644
 
   - name: ensure named is running and enabled
     service:

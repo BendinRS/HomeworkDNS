@@ -1,7 +1,6 @@
 {% if ansible_hostname == 'ns02' %}
 nameserver {{ip_ns02}}
 {% endif %}
-#Если имя сервера ns01, то указываем nameserver 192.168.50.10
 {% if ansible_hostname == 'ns01' %}
 nameserver {{ip_ns01}}
 {% endif %}
