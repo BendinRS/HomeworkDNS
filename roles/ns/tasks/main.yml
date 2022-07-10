@@ -31,14 +31,14 @@
   - name: Copy named.conf to servers
     template:
        src: named.conf.j2
-       dest: /etc/openvpn/named.conf
+       dest: /etc/named.conf
        owner: root
        group: root
        mode: 0644
   - name: Copy dns.lab to ns01
     template:
        src: named.dns.lab.j2
-       dest: /etc/openvpn/named.dns.lab
+       dest: /etc/named/named.dns.lab
        owner: root
        group: root
        mode: 0644
