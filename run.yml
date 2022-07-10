@@ -1,10 +1,11 @@
 ---
-- hosts: ns
-  become: true
-  roles:
-    - ns
 
 - hosts: clients_dns
   become: true
   roles:
     - clients
+
+- hosts: ns
+  become: true
+  roles:
+    - ns
