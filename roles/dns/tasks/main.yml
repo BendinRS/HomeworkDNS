@@ -1,2 +1,29 @@
 ---
 # tasks file for dns
+  - name: install packages
+    yum:
+      state: present
+      name:
+        - bind
+        - bind-utils
+        # - ntp
+
+  - name: start chronyd
+    service:
+      name: chronyd
+      state: restarted
+      enabled: true
+
+  # - name: stop and disable chronyd
+  #   service:
+  #       name: chronyd
+  #       state: stopped
+  #       enabled: false
+  # - name: start and enable ntpd
+  #   service:
+  #     name: ntpd
+  #     state: started
+  #     enabled: true
+
+
+
