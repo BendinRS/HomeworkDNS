@@ -27,7 +27,7 @@
 
   - name: copy resolv.conf to the servers
     template:
-      src: resolv.conf.j2
+      src: ./roles/dns/files/resolv.conf.j2
       dest: /etc/resolv.conf
       owner: root
       group: root
