@@ -64,6 +64,15 @@
       mode: 0660
     when: (ansible_hostname == "ns01")
 
+  - name: copy zones to the ns01 named.dns.lab.rev
+    copy: 
+      src: ./files/named.dns.lab.rev
+      dest: /etc/named/named.dns.lab.rev
+      owner: root 
+      group: named
+      mode: 0660
+    when: (ansible_hostname == "ns01")
+
   - name: copy resolv.conf to the servers
     template:
       src: resolv.conf.j2
