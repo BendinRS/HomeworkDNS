@@ -1,0 +1,47 @@
+---
+# tasks file for dns
+  - name: install packages
+    yum:
+      state: present
+      name:
+        - bind
+        - bind-utils
+        # - ntp
+
+  - name: start chronyd
+    service:
+      name: chronyd
+      state: restarted
+      enabled: true
+
+  - name: copy named.zonetransfer.key to the clients
+    copy:
+      src: ./files/named.zonetransfer.key
+      dest: /etc/named.zonetransfer.key
+      owner: root
+      group: named
+      mode: 0644
+
+  - name: copy resolv.conf to the clients
+    template:
+      src: resolv.conf.j2
+      dest: /etc/resolv.conf
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: copy rndc conf file
+    copy: 
+      src: ./files/rndc.conf
+      dest: /home/vagrant/rndc.conf
+      owner: vagrant
+      group: vagrant
+      mode: 0644
+
+  - name: copy motd to the client
+    copy: 
+      src: ./files/client-motd
+      dest: /etc/motd
+      owner: root
+      group: root
+      mode: 0644
