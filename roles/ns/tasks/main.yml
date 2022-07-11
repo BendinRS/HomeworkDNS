@@ -20,6 +20,50 @@
       state: started
       enabled: yes
 
+  - name: copy named.zonetransfer.key to the servers
+    copy:
+      src: ./files/named.zonetransfer.key
+      dest: /etc/named.zonetransfer.key
+      owner: root
+      group: named
+      mode: 0644
+
+  - name: Copy named.conf to the ns01
+    copy:
+       src: ./files/master-named.conf
+       dest: /etc/named.conf
+       owner: root
+       group: named
+       mode: 0644
+    when: (ansible_hostname == "ns01")
+
+  - name: Copy named.conf to the ns02
+    copy:
+       src: ./files/slave-named.conf
+       dest: /etc/named.conf
+       owner: root
+       group: named
+       mode: 0644
+    when: (ansible_hostname == "ns02")
+
+  - name: copy zones to the ns01 named.dns.lab
+    copy: 
+      src: ./files/named.dns.lab
+      dest: /etc/named/named.dns.lab
+      owner: root 
+      group: named
+      mode: 0660
+    when: (ansible_hostname == "ns01")
+
+  - name: copy zones to the ns01 named.newdns.lab
+    copy: 
+      src: ./files/named.newdns.lab
+      dest: /etc/named/named.newdns.lab
+      owner: root 
+      group: named
+      mode: 0660
+    when: (ansible_hostname == "ns01")
+
   - name: copy resolv.conf to the servers
     template:
       src: resolv.conf.j2
@@ -28,29 +72,12 @@
       group: root
       mode: 0644
 
-  - name: Copy named.conf to servers
-    template:
-       src: named.conf.j2
-       dest: /etc/named.conf
-       owner: root
-       group: root
-       mode: 0644
-
-  - name: Copy dns.lab to ns01
-    template:
-       src: named.dns.lab.j2
-       dest: /etc/named/named.dns.lab
-       owner: root
-       group: named
-       mode: 0660
-
-  - name: Copy newdns.lab to ns01
-    template:
-       src: named.newdns.lab.j2
-       dest: /etc/named/named.newdns.lab
-       owner: root
-       group: named
-       mode: 0660
+  - name: set /etc/named permissions
+    file: 
+      path: /etc/named 
+      owner: root
+      group: named
+      mode: 0670
 
   - name: ensure named is running and enabled
     service:
