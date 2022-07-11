@@ -28,10 +28,18 @@
       group: named
       mode: 0644
 
+  - name: copy named.ddns to the servers
+    copy:
+      src: ./files/named.ddns.lab
+      dest: /etc/named/named.ddns.lab
+      owner: root
+      group: named
+      mode: 0644
+
   - name: copy named.newdns.lab
     copy:
       src: ./files/named.newdns.lab
-      dest: /etc/named.newdns.lab
+      dest: /etc/named/named.newdns.lab
       owner: root
       group: named
       mode: 0644
