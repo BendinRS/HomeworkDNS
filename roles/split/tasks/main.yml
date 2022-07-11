@@ -80,6 +80,15 @@
       mode: 0660
     when: (ansible_hostname == "ns01")
 
+  - name: copy zones to the ns01 named.dns.lab.client
+    copy: 
+      src: ./files/named.dns.lab.client
+      dest: /etc/named/named.dns.lab.client
+      owner: root 
+      group: named
+      mode: 0660
+    when: (ansible_hostname == "ns01")
+
   - name: copy zones to the ns01 named.dns.lab.rev
     copy: 
       src: ./files/named.dns.lab.rev
