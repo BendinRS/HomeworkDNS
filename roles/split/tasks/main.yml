@@ -28,6 +28,14 @@
       group: named
       mode: 0644
 
+  - name: copy named.newdns.lab
+    copy:
+      src: ./files/named.newdns.lab
+      dest: /etc/named.newdns.lab
+      owner: root
+      group: named
+      mode: 0644
+
   - name: Copy named.conf to the ns01
     copy:
        src: ./files/master-named.conf
